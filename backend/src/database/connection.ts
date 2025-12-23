@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 
 const sequelize = new Sequelize(
   process.env.DB_NAME!, // database
@@ -9,11 +9,12 @@ const sequelize = new Sequelize(
     dialect: "postgres",
     port: Number(process.env.DB_PORT!),
     logging: false, // disable SQL logs (optional)
-    schema: "training-institute",
+    models: [__dirname + '/models']
+
   }
 );
 
-export const connectDB = async () => {
+export const db = async () => {
   try {
     await sequelize.authenticate();
     console.log("✅ PostgreSQL connected successfully");
@@ -21,5 +22,9 @@ export const connectDB = async () => {
     console.error("❌ Unable to connect to the database:", error);
   }
 };
+
+sequelize.sync({ alter: true}).then(() => {
+  console.log("database and tables synced !!!");
+});
 
 export default sequelize;

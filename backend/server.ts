@@ -4,10 +4,12 @@ config()
 
 import { envConfig } from "./src/config/config";
 
-import db, { connectDB } from "./src/database/connection";
+import { db } from "./src/database/connection";
 
 // Establish database connection
-connectDB();
+db();
+
+
 
 function startServer() {
     const port = envConfig.portNumber
