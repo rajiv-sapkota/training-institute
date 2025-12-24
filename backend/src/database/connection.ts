@@ -23,7 +23,7 @@ export const db = async () => {
   }
 };
 
-sequelize.sync({ alter: true}).then(() => {
+sequelize.sync({ alter:true}).then(() => {
   console.log("database and tables synced !!!");
 });
 
